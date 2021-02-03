@@ -16,7 +16,7 @@
 
 ### Association
  - has_many :orders
- - has_many :items, through: orders
+ - has_many :items
 
 
 ## items テーブル
@@ -34,10 +34,10 @@
 | user               | references | null: false, foreign_key: true |
 
 ### Association
- - belongs_to :user, through: orders
+ - belongs_to :user
  - has_one :order
 
- 
+
 ## orders テーブル
 
 | column                 | Type       | Options                        |
@@ -49,7 +49,7 @@
 ### Association
  - has_one :receiver
  - belongs_to :user
- -belongs_to :item
+ - belongs_to :item
 
 
 
