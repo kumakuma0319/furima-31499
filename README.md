@@ -15,9 +15,8 @@
 
 
 ### Association
- - has_many :items
  - has_many :orders
- - has_many:items, through: orders
+ - has_many :items, through: orders
 
 
 ## items テーブル
@@ -25,7 +24,7 @@
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | name               | string     | null: false                    |
-| prefecture         | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | postage_payer_id   | integer    | null: false                    |
 | preparation_day_id | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
@@ -35,7 +34,7 @@
 | user               | references | null: false, foreign_key: true |
 
 ### Association
- - has_many :users, through: orders
+ - belongs_to :user, through: orders
  - has_one :order
 
  
@@ -48,7 +47,7 @@
 
 
 ### Association
- - has_one :receivers
+ - has_one :receiver
  - belongs_to :user
  -belongs_to :item
 
@@ -59,13 +58,13 @@
 | column          | Type       | Options                        |
 | --------------  | ---------- | ------------------------------ |
 | post_code       | string     | null: false                    |
-| prefecture      | string     | null: false                    |
 | city            | string     | null: false                    |
 | house_number    | string     | null: false                    |
 | phone_number    | string     | null: false                    |
 | building_name   | string     |                                |
+| prefecture_id   | integer    | null: false                    |
 | user            | references | null: false, foreign_key: true |
 
 ### Association
- - has_one :order
+ - belongs_to :order
 
