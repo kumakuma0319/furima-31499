@@ -9,14 +9,17 @@ class Item < ApplicationRecord
   belongs_to :condition_selection
   belongs_to :preparation_day_selection
 
-  validates :name, presence: true
-  validates :introduction, presence: true
-  validates :condition_id, numericality: { other_than: 1 }
-  validates :category_id, numericality: { other_than: 1 }
-  validates :postage_payer_id, numericality: { other_than: 1 }
-  validates :prefecture_id, numericality: { other_than: 1 }
-  validates :preparation_day_id, numericality: { other_than: 1 }
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
-  validates :image, presence: true
-
+  with_options presence: true do
+    validates :name
+    validates :introduction
+    validates :image
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+  end
+  with_options numericality: { other_than:1 } do
+    validates :condition_id
+    validates :category_id
+    validates :postage_payer_id
+    validates :prefecture_id
+    validates :preparation_day_id
+  end
 end
