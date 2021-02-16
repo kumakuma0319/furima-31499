@@ -1,4 +1,4 @@
-class PreparationDaySelection < ActiveHash::Base
+class PreparationDay < ActiveHash::Base
 
   
   self.data = [

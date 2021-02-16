@@ -1,4 +1,4 @@
-class PostagePayerSelection < ActiveHash::Base
+class PostagePayer< ActiveHash::Base
 
   self.data = [
     {id: 1, postage_payer: '--'},
