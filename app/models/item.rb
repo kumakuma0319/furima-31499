@@ -3,11 +3,11 @@ class Item < ApplicationRecord
   has_one_attached :image
   has_one :order
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category_selection
-  belongs_to :postage_payer_selection
-  belongs_to :prefecture_selection
-  belongs_to :condition_selection
-  belongs_to :preparation_day_selection
+  belongs_to :category
+  belongs_to :postage_payer
+  belongs_to :prefecture
+  belongs_to :condition
+  belongs_to :preparation_day
 
   with_options presence: true do
     validates :name
