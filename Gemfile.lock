@@ -295,10 +295,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_hash
-<<<<<<< Updated upstream
   aws-sdk-s3
-=======
->>>>>>> Stashed changes
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
