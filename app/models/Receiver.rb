@@ -1,3 +1,3 @@
-class Receiver
+class Receiver < ApplicationRecord
   belongs_to :order
-  end
+end
