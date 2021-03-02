@@ -6,7 +6,7 @@ RSpec.describe OrderReceiver, type: :model do
       @order_receiver = FactoryBot.build(:order_receiver)
     end
 
-    it "建物名以外の全ての値があれば登録できること" do
+    it "building_name以外の全ての値があれば登録できること" do
       expect(@order_receiver).to be_valid
     end
 
@@ -16,7 +16,7 @@ RSpec.describe OrderReceiver, type: :model do
       expect(@order_receiver.errors.full_messages).to include("Post code can't be blank", "Post code はハイフンをつけて入力してください")
     end
 
-    it "郵便番号にはハイフンが必要であること" do
+    it "post_codeにはハイフンが必要であること" do
       @order_receiver.post_code = '1111111'
       @order_receiver.valid?
       expect(@order_receiver.errors.full_messages).to include("Post code はハイフンをつけて入力してください")
@@ -28,7 +28,7 @@ RSpec.describe OrderReceiver, type: :model do
       expect(@order_receiver.errors.full_messages).to include("City can't be blank")
     end
 
-    it "建物名がなくても登録できること" do
+    it "building_nameがなくても登録できること" do
       @order_receiver.building_name = ''
       expect(@order_receiver).to be_valid
     end
@@ -55,6 +55,12 @@ RSpec.describe OrderReceiver, type: :model do
       @order_receiver.prefecture_id = '1'
       @order_receiver.valid?
       expect(@order_receiver.errors.full_messages).to include("Prefecture must be other than 1")
+    end
+
+    it "tokenが空では登録できないこと" do
+      @order_receiver.token = ''
+      @order_receiver.valid?
+      expect(@order_receiver.errors.full_messages).to include("Token can't be blank")
     end
 
   end
