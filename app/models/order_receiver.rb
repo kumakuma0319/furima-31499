@@ -1,17 +1,19 @@
 class OrderReceiver
   include ActiveModel::Model
-    attr_accessor :post_code, :city, :house_number, :phone_number, :prefecture_id, :building_name, :token, :user_id, :item_id
-      with_options presence: true do
-        validates :post_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: 'はハイフンをつけて入力してください' }
-        validates :city
-        validates :house_number
-        validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'はハイフンなしで入力してください' }
-        validates :prefecture_id, numericality: { other_than:1 }
-        validates :token
-      end
+  attr_accessor :post_code, :city, :house_number, :phone_number, :prefecture_id, :building_name, :token, :user_id, :item_id
 
-    def save
-    order_receiver = Order.create(user_id: user_id, item_id: item_id)
-    Receiver.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number, building_name: building_name)
-    end
+  with_options presence: true do
+    validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'はハイフンをつけて入力してください' }
+    validates :city
+    validates :house_number
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'はハイフンなしで入力してください' }
+    validates :prefecture_id, numericality: { other_than: 1 }
+    validates :token
   end
+
+  def save
+    order_receiver = Order.create(user_id: user_id, item_id: item_id)
+    Receiver.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number,
+                    building_name: building_name)
+  end
+end

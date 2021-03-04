@@ -1,7 +1,5 @@
 class ReceiversController < ApplicationController
-  
   def index
-   
     @order_receiver = OrderReceiver.new
     @item = Item.find(params[:item_id])
   end
@@ -18,18 +16,20 @@ class ReceiversController < ApplicationController
     end
   end
 
-private
+  private
 
   def receiver_params
-    params.require(:order_receiver).permit(:post_code, :house_number, :prefecture_id, :building_name, :phone_number, :city).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:order_receiver).permit(:post_code, :house_number, :prefecture_id, :building_name, :phone_number, :city).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: @item.price,
-        card: receiver_params[:token],
-        currency: 'jpy'
-      )
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: receiver_params[:token],
+      currency: 'jpy'
+    )
   end
 end
