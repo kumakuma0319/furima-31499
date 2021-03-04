@@ -1,4 +1,7 @@
 class ReceiversController < ApplicationController
+  before_action :item_for_params, only: [:index, :create]
+  before_action :move_to_index, only: [:index]
+
   def index
     @order_receiver = OrderReceiver.new
     @item = Item.find(params[:item_id])
@@ -31,5 +34,13 @@ class ReceiversController < ApplicationController
       card: receiver_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def item_for_params
+    @item = Item.find(params[:item_id])
+  end
+
+  def move_to_index
+    redirect_to root_path if current_user.id == @item.user_id
   end
 end
