@@ -6,14 +6,15 @@ class OrderReceiver
     validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'はハイフンをつけて入力してください' }
     validates :city
     validates :house_number
-    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'はハイフンなしで入力してください' }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'はハイフンなし、 かつ１２桁以上では登録できません' }
     validates :prefecture_id, numericality: { other_than: 1 }
     validates :token
+    validates :user_id
+    validates :item_id
   end
 
   def save
-    order_receiver = Order.create(user_id: user_id, item_id: item_id)
-    Receiver.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number,
-                    building_name: building_name)
+    order = Order.create(user_id: user_id, item_id: item_id)
+    Receiver.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number, phone_number: phone_number, building_name: building_name, order_id: order.id)
   end
 end
