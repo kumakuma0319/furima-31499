@@ -4,15 +4,17 @@ RSpec.describe OrderReceiver, type: :model do
   describe '#create' do
     before do
       @order_receiver = FactoryBot.build(:order_receiver)
-      @user = FactoryBot.build(:user)
-      @item = FactoryBot.build(:item)
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @order_receiver.user_id = @user.id
+      @order_receiver.item_id = @item.id
+      sleep 0.1
     end
 
 
     it '全ての値があれば登録できること' do
       expect(@order_receiver).to be_valid
-      expect(@user).to be_valid
-      expect(@item).to be_valid
+      expect(@order_receiver).to be_valid
     end
 
     it 'post_codeがなければ登録できないこと' do

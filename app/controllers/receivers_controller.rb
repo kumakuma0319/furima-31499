@@ -1,7 +1,7 @@
 class ReceiversController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :item_for_params, only: [:index, :create]
-  before_action :move_to_index, only: [:index]
+  before_action :move_to_index, only: [:index, :create]
 
   def index
     @order_receiver = OrderReceiver.new
