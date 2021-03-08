@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :item_for_params, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit, :update, :destroy]
 
@@ -24,9 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.order.present?
-      redirect_to root_path
-    end
   end
 
   def update
@@ -45,7 +42,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :category_id, :postage_payer_id, :prefecture_id, :preparation_day_id, :condition_id, :price, :introduction, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :category_id, :postage_payer_id, :prefecture_id, :preparation_day_id, :condition_id,
+                                 :price, :introduction, :image).merge(user_id: current_user.id)
   end
 
   def move_to_index

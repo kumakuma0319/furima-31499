@@ -3,7 +3,7 @@ class OrderReceiver
   attr_accessor :post_code, :city, :house_number, :phone_number, :prefecture_id, :building_name, :token, :user_id, :item_id
 
   with_options presence: true do
-    validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'はハイフンをつけて入力してください' }
+    validates :post_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: 'はハイフンをつけて入力してください' }
     validates :city
     validates :house_number
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'はハイフンなし、 かつ１２桁以上では登録できません' }
@@ -15,6 +15,7 @@ class OrderReceiver
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
-    Receiver.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number, phone_number: phone_number, building_name: building_name, order_id: order.id)
+    Receiver.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number,
+                    phone_number: phone_number, building_name: building_name, order_id: order.id)
   end
 end
