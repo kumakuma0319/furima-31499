@@ -5,12 +5,10 @@ class ReceiversController < ApplicationController
 
   def index
     @order_receiver = OrderReceiver.new
-    @item = Item.find(params[:item_id])
   end
 
   def create
     @order_receiver = OrderReceiver.new(receiver_params)
-    @item = Item.find(params[:item_id])
     if @order_receiver.valid?
       pay_item
       @order_receiver.save
@@ -42,7 +40,7 @@ class ReceiversController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path if current_user.id == @item.user_id
-    redirect_to root_path if @item.order.present?
+    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
+
 end
